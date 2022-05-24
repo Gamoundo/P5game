@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
 import Sketch from 'react-p5';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -11,56 +11,58 @@ function App() {
     
   }
 
+  let c1;
+  let c2;
+  let c3;
+  let px = 250
+   
+
+  
+  
+  
 const [xcoord, setXCoord] =useState(30)
 const [ycoord, setYCoord] =useState(20)
+const [ey, setEy] = useState(60)
 
-  
-  // const keyPress =({key}) => {
-  //   if(key === 'RIGHT_ARROW'){
-  //     return x +=5
-  //   }
-  //   if(key === 'LEFT_ARROW'){
-  //     return x -=5
-  //   }
-  //   if(key === 'UP_ARROW'){
-  //     return y +=5
-  //   }
-  //   if(key === 'DOWN_ARROW'){
-  //     return y -=5
-  //   }
 
-  // }
-
-// useEffect(() => {
-  
-//   const keyPress =({key}) => {
-//     if(key === 'RIGHT_ARROW'){
-//       setX(prev => prev +=5)
+let projectiles = useMemo(() => [])
+// const projSpawn = (num) => {
+//   if(num % 15 === 0) {
+//     let bullet = {
+//       x: px,
+//       y: ey
 //     }
-//     if(key === 'LEFT_ARROW'){
-//       setX(prev => prev -=5)
-//     }
-//     if(key === 'UP_ARROW'){
-//       setY(prev => prev +=5)
-//     }
-//     if(key === 'DOWN_ARROW'){
-//       setY(prev => prev -=5)
-//     }
-
+//     projectiles.push(bullet)
 //   }
-
-//   window.addEventListener('keyup', keyPress)
-//   console.log(x,y)
-//   return () => window.removeEventListener('keyup', keyPress)
-// }, [])
-
-
-let c1;
-let c2;
-let c3;
-let px = 250
-let ey = 60;
   
+// }
+
+
+  
+  
+
+
+
+
+
+
+
+  
+useEffect(() => {
+  if(ey % 15 === 0){
+    let bullet = {
+      x: px,
+      y: ey
+    }
+    projectiles.push(bullet)
+  }
+
+ 
+}, [projectiles, ey, px])
+
+
+
+
   const draw = p5 => {
     p5.background(255, 130, 20) 
     c1 = p5.color('green')
@@ -71,15 +73,16 @@ let ey = 60;
    p5.fill(c2)
     p5.ellipse(250,ey, 50,40).frameRate(40)
     
-    ey += 5
+    setEy(prev => prev += 5)
     if (ey > 380) {
-      ey = 0
+      setEy(prev => prev = 0)
     }
     c3 = p5.color('sky-blue')
     p5.fill(c3)
-  let projectile=  p5.ellipse(px,ey, 10,5)
-
-      px -=5
+  for (let bullet of projectiles) {
+    p5.ellipse(bullet.x, bullet.y, 10, 5)
+    bullet.x -= 5
+  }
 
 
     if (p5.keyCode === 39) {
@@ -113,7 +116,9 @@ let ey = 60;
   return (
     <div >
       <h1>Life</h1>
+      {/* {projSpawn(ey)} */}
       <Sketch setup={setup} draw={draw}/>
+      
     </div>
   );
 }
