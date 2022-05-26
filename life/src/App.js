@@ -2,6 +2,7 @@
 import './App.css';
 import Sketch from 'react-p5';
 import { useEffect, useMemo, useState } from 'react';
+import Timer from './components/Timer';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -118,6 +119,7 @@ useEffect(() => {
   return (
     <div >
       <h1>Life</h1>
+      <Timer />
       {/* {projSpawn(ey)} */}
       <Sketch setup={setup} draw={draw}/>
       
