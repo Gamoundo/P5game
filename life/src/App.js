@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 function App() {
   const setup = (p5, canvasParentRef) => {
     p5.createCanvas(500, 400).parent(canvasParentRef)
-    // getFrames(p5)
+    
     
     
   }
@@ -24,8 +24,9 @@ const [xcoord, setXCoord] =useState(30)
 const [ycoord, setYCoord] =useState(20)
 const [ey, setEy] = useState(60)
 
+const [projectiles, setProjectiles] = useState([])
+// let projectiles = useMemo(() => [])
 
-let projectiles = useMemo(() => [])
 // const projSpawn = (num) => {
 //   if(num % 15 === 0) {
 //     let bullet = {
@@ -49,12 +50,13 @@ let projectiles = useMemo(() => [])
 
   
 useEffect(() => {
-  if(ey % 15 === 0){
+  if(ey % 45 === 0){
     let bullet = {
       x: px,
       y: ey
     }
     projectiles.push(bullet)
+    
   }
 
  
@@ -67,7 +69,7 @@ useEffect(() => {
     p5.background(255, 130, 20) 
     c1 = p5.color('green')
     p5.fill(c1)
-   p5.rect(xcoord, ycoord, 55, 55, 20)
+   p5.rect(xcoord, ycoord, 30, 30, 20)
    c2 = p5.color('yellow')
 
    p5.fill(c2)
