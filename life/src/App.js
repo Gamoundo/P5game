@@ -51,7 +51,7 @@ const [projectiles, setProjectiles] = useState([])
 
   
 useEffect(() => {
-  if(ey % 45 === 0){
+  if(ey % 80 === 0){
     let bullet = {
       x: px,
       y: ey
@@ -75,7 +75,8 @@ useEffect(() => {
 
    p5.fill(c2)
     p5.ellipse(250,ey, 50,40).frameRate(40)
-    
+    p5.fill(c1)
+    p5.text('Work', 233, ey)
     setEy(prev => prev += 5)
     if (ey > 380) {
       setEy(prev => prev = 0)
