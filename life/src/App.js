@@ -6,7 +6,7 @@ import Timer from './components/Timer';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
-    p5.createCanvas(500, 400).parent(canvasParentRef)
+    p5.createCanvas(1000, 400).parent(canvasParentRef)
     
     
     
@@ -73,6 +73,10 @@ useEffect(() => {
   for (let bullet of projectiles) {
     p5.ellipse(bullet.x, bullet.y, 10, 5)
     bullet.x -= 5
+
+  if(bullet.x === xcoord && bullet.y === ycoord){
+    console.log('hit')
+  }
   }
 
 
