@@ -1,8 +1,9 @@
 
 import './App.css';
 import Sketch from 'react-p5';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect,  useState } from 'react';
 import Timer from './components/Timer';
+import useCharacter from './hooks/useCharacter'
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -27,8 +28,9 @@ const [ey, setEy] = useState(60)
 const [age, setAge] = useState(20)
 const [speed, setSpeed] = useState(5)
 const [projectiles, setProjectiles] = useState([])
+const [stressors, setStressors] = useState([])
 
-
+// const {aging, movement} = useCharacter.js(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
 useEffect(() => {
   if(ey % 80 === 0){
     let bullet = {
@@ -41,6 +43,19 @@ useEffect(() => {
 
  
 }, [projectiles, ey, px])
+
+useEffect(() => {
+  if(ey % 45 === 0){
+    let stressor = {
+      x: 500,
+      y: ey
+    }
+    stressors.push(stressor)
+    
+  }
+
+ 
+}, [stressors, ey])
 
 
 
@@ -57,6 +72,8 @@ useEffect(() => {
       setC1(prev => "gray")
       setSpeed(prev => 2)
     }
+    // aging() 
+    // movement(p5)
    p5.rect(xcoord, ycoord, 30, 30, 20)
    
 
@@ -77,6 +94,23 @@ useEffect(() => {
   if(bullet.x === xcoord && bullet.y === ycoord){
     console.log('hit')
   }
+  }
+
+  p5.fill('red')
+    p5.ellipse(500,ey, 60,60).frameRate(40)
+    p5.fill('green')
+    p5.text('stress', 480, ey)
+    setEy(prev => prev += 5)
+    if (ey > 380) {
+      setEy(prev => prev = 0)
+    }
+    
+    p5.fill('pink')
+  for (let stessor of stressors) {
+    p5.ellipse(stessor.x, stessor.y, 20, 10)
+    stessor.x -= 4
+
+  
   }
 
 
