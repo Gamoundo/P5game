@@ -22,9 +22,11 @@ function App() {
   
   
 const [c1, setC1] = useState(`green`)  
+const [color, setColor] = useState('teal')
 const [xcoord, setXCoord] =useState(30)
 const [ycoord, setYCoord] =useState(20)
 const [ey, setEy] = useState(60)
+const [sy, setSy] = useState(60)
 const [age, setAge] = useState(20)
 const [speed, setSpeed] = useState(5)
 const [projectiles, setProjectiles] = useState([])
@@ -45,31 +47,33 @@ useEffect(() => {
 }, [projectiles, ey, px])
 
 useEffect(() => {
-  if(ey % 45 === 0){
+  if(sy % 60 === 0){
     let stressor = {
       x: 500,
-      y: ey
+      y: sy
     }
     stressors.push(stressor)
     
   }
 
  
-}, [stressors, ey])
+}, [stressors, sy])
 
 
 
 
   const draw = p5 => {
-    p5.background(255, 130, 20) 
+    p5.background(color) 
     
     p5.fill(c1)
     if (age > 40 && age < 60) {
       setC1(prev => "blue")
+      setColor(prev => "lavender")
       setSpeed(prev => 4)
     }
     if (age > 60) {
       setC1(prev => "gray")
+      setColor(prev => "black")
       setSpeed(prev => 2)
     }
     // aging() 
@@ -91,18 +95,29 @@ useEffect(() => {
     p5.ellipse(bullet.x, bullet.y, 10, 5)
     bullet.x -= 5
 
-  if(bullet.x === xcoord && bullet.y === ycoord){
-    console.log('hit')
-  }
+  
   }
 
-  p5.fill('red')
-    p5.ellipse(500,ey, 60,60).frameRate(40)
-    p5.fill('green')
-    p5.text('stress', 480, ey)
-    setEy(prev => prev += 5)
-    if (ey > 380) {
-      setEy(prev => prev = 0)
+  for(let i = 0; i < projectiles.length; i++) {
+    if(projectiles[i].x <= 5) {
+      projectiles.splice(i, 1)
+    }
+  } 
+
+  for(let i = 0; i < stressors.length; i++) {
+    if(stressors[i].x <= 5) {
+      stressors.splice(i, 1)
+    }
+  }
+
+
+  p5.fill('green')
+    p5.ellipse(500,sy, 60,60).frameRate(40)
+    p5.fill('yellow')
+    p5.text('stress', 480, sy)
+    setSy(prev => prev += 4)
+    if (sy > 380) {
+      setSy(prev => prev = 0)
     }
     
     p5.fill('pink')
@@ -145,7 +160,7 @@ useEffect(() => {
   return (
     <div >
       <h1>Life</h1>
-      <Timer  setAge={setAge} age={age}/>
+      <Timer  setAge={setAge} age={age} />
       
       <Sketch setup={setup} draw={draw}/>
       
