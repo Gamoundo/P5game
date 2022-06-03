@@ -59,7 +59,7 @@ useEffect(() => {
  
 }, [stressors, sy])
 
-
+// console.log(xcoord, ycoord)
 
 
   const draw = p5 => {
@@ -94,18 +94,20 @@ useEffect(() => {
   for (let bullet of projectiles) {
     p5.ellipse(bullet.x, bullet.y, 10, 5)
     bullet.x -= 5
-
+    if( p5.dist(bullet.x, bullet.y, xcoord,ycoord) < 10){
+      console.log("hit")
+    }
   
   }
 
   for(let i = 0; i < projectiles.length; i++) {
-    if(projectiles[i].x <= 5) {
+    if(projectiles[i].x <= -5) {
       projectiles.splice(i, 1)
     }
   } 
 
   for(let i = 0; i < stressors.length; i++) {
-    if(stressors[i].x <= 5) {
+    if(stressors[i].x <= -5) {
       stressors.splice(i, 1)
     }
   }
@@ -124,7 +126,9 @@ useEffect(() => {
   for (let stessor of stressors) {
     p5.ellipse(stessor.x, stessor.y, 20, 10)
     stessor.x -= 4
-
+    if( p5.dist(stessor.x, stessor.y, xcoord,ycoord) < 10){
+      console.log("hit")
+    }
   
   }
 
