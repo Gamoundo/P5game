@@ -4,6 +4,7 @@ import Sketch from 'react-p5';
 import { useEffect,  useState } from 'react';
 import Timer from './components/Timer';
 import useCharacter from './hooks/useCharacter'
+import Story from './components/Story';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -18,7 +19,14 @@ function App() {
   
   let px = 250
    
-
+const [char, setChar] = useState(
+  {
+    name:'Dave',
+    workHits: 0,
+    stressHits: 0,
+    alive: true,
+  }
+)
   
   
 const [c1, setC1] = useState(`green`)  
@@ -94,13 +102,16 @@ useEffect(() => {
   for (let bullet of projectiles) {
     p5.ellipse(bullet.x, bullet.y, 10, 5)
     bullet.x -= 5
-    if( p5.dist(bullet.x, bullet.y, xcoord,ycoord) < 10){
-      console.log("hit")
-    }
+    
   
   }
 
   for(let i = 0; i < projectiles.length; i++) {
+    if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
+      projectiles.splice(i, 1)
+      setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
+      
+    }
     if(projectiles[i].x <= -5) {
       projectiles.splice(i, 1)
     }
@@ -167,6 +178,7 @@ useEffect(() => {
       <Timer  setAge={setAge} age={age} />
       
       <Sketch setup={setup} draw={draw}/>
+      <Story  char={char}/>
       
     </div>
   );
