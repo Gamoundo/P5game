@@ -74,12 +74,12 @@ useEffect(() => {
     p5.background(color) 
     
     p5.fill(c1)
-    if (age > 40 && age < 60) {
+    if (age >= 40 && age < 60) {
       setC1(prev => "blue")
       setColor(prev => "lavender")
       setSpeed(prev => 4)
     }
-    if (age > 60) {
+    if (age >= 60) {
       setC1(prev => "gray")
       setColor(prev => "black")
       setSpeed(prev => 2)
@@ -118,6 +118,11 @@ useEffect(() => {
   } 
 
   for(let i = 0; i < stressors.length; i++) {
+    if( p5.dist(stressors[i].x, stressors[i].y, xcoord,ycoord) < 10){
+      stressors.splice(i, 1)
+      setChar(prev => ({...prev,  stressHits: prev.stressHits += 1}))
+      
+    }
     if(stressors[i].x <= -5) {
       stressors.splice(i, 1)
     }
@@ -144,26 +149,33 @@ useEffect(() => {
   }
 
 
+  
+
+  
     if (p5.keyCode === 39) {
       if(xcoord < 100){
+        setSpeed(prev => prev = 5)
         setXCoord(prev => prev +=speed)
       }
       
     }
     if (p5.keyCode === 37) {
       if(xcoord > 0){
+        setSpeed(prev => prev = 5)
         setXCoord(prev => prev -=speed)
       }
       
     }
     if (p5.keyCode === 38) {
       if(ycoord > 0) {
+        setSpeed(prev => prev = 5)
         setYCoord(prev => prev -=speed)
       }
       
     }
     if (p5.keyCode === 40) {
       if(ycoord < 360){
+        setSpeed(prev => prev = 5)
         setYCoord(prev => prev +=speed)
       }
       
