@@ -5,6 +5,7 @@ import { useEffect,  useState } from 'react';
 import Timer from './components/Timer';
 import useCharacter from './hooks/useCharacter'
 import Story from './components/Story';
+import Ending from './components/Ending';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -191,6 +192,7 @@ useEffect(() => {
       
       <Sketch setup={setup} draw={draw}/>
       <Story  char={char}/>
+       <Ending  char={char} age={age}/>
       
     </div>
   );
