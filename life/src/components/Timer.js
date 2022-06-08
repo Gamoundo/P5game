@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 
 export default function Timer(props) {
   
     
   
+  
     useEffect(() => {
+     
       let interval = setInterval(() => {
-          props.setAge(prev => prev +=1)
+         props.alive && props.setAge(prev => prev +=1)
       }, 7000)
     
       return () => clearInterval(interval)
-    }, [props.setAge])
+    }, [props.setAge, props.alive])
     
   
     return (

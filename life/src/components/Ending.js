@@ -29,7 +29,7 @@ export default function Ending({char, age}) {
   
   
     return (
-    <div>
+    <div className='modal'>
         <h1> The Story of {char.name}</h1>
         {youth(age)}
         {work()}

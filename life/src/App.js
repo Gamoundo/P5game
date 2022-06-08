@@ -1,7 +1,7 @@
 
 import './App.css';
 import Sketch from 'react-p5';
-import { useEffect,  useState } from 'react';
+import React, { useEffect,  useState } from 'react';
 import Timer from './components/Timer';
 import useCharacter from './hooks/useCharacter'
 import Story from './components/Story';
@@ -188,11 +188,13 @@ useEffect(() => {
   return (
     <div >
       <h1>Life</h1>
-      <Timer  setAge={setAge} age={age} />
-      
+      <Timer  setAge={setAge} age={age} alive={char.alive}/>
+      <div className='row'>
       <Sketch setup={setup} draw={draw}/>
       <Story  char={char}/>
-       <Ending  char={char} age={age}/>
+      </div>
+      
+      { !char.alive && <Ending  char={char} age={age}/>} 
       
     </div>
   );
