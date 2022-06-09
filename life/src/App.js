@@ -6,6 +6,7 @@ import Timer from './components/Timer';
 import useCharacter from './hooks/useCharacter'
 import Story from './components/Story';
 import Ending from './components/Ending';
+import Bgm from './components/Bgm';
 
 function App() {
   const setup = (p5, canvasParentRef) => {
@@ -41,7 +42,7 @@ const [speed, setSpeed] = useState(5)
 const [projectiles, setProjectiles] = useState([])
 const [stressors, setStressors] = useState([])
 
-// const {aging, movement} = useCharacter.js(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
+const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
 useEffect(() => {
   if(ey % 80 === 0){
     let bullet = {
@@ -75,18 +76,9 @@ useEffect(() => {
     p5.background(color) 
     
     p5.fill(c1)
-    if (age >= 40 && age < 60) {
-      setC1(prev => "blue")
-      setColor(prev => "lavender")
-      setSpeed(prev => 4)
-    }
-    if (age >= 60) {
-      setC1(prev => "gray")
-      setColor(prev => "black")
-      setSpeed(prev => 2)
-    }
-    // aging() 
-    // movement(p5)
+    
+    aging() 
+    movement(p5)
    p5.rect(xcoord, ycoord, 30, 30, 20)
    
 
@@ -150,37 +142,7 @@ useEffect(() => {
   }
 
 
-  
-
-  
-    if (p5.keyCode === 39) {
-      if(xcoord < 100){
-        setSpeed(prev => prev = 5)
-        setXCoord(prev => prev +=speed)
-      }
-      
-    }
-    if (p5.keyCode === 37) {
-      if(xcoord > 0){
-        setSpeed(prev => prev = 5)
-        setXCoord(prev => prev -=speed)
-      }
-      
-    }
-    if (p5.keyCode === 38) {
-      if(ycoord > 0) {
-        setSpeed(prev => prev = 5)
-        setYCoord(prev => prev -=speed)
-      }
-      
-    }
-    if (p5.keyCode === 40) {
-      if(ycoord < 360){
-        setSpeed(prev => prev = 5)
-        setYCoord(prev => prev +=speed)
-      }
-      
-    }
+ 
     
   }
   
@@ -190,9 +152,12 @@ useEffect(() => {
       <h1>Life</h1>
       <Timer  setAge={setAge} age={age} alive={char.alive}/>
       <div className='row'>
-      <Sketch setup={setup} draw={draw}/>
+     {age && <Sketch setup={setup} draw={draw}/>} 
       <Story  char={char}/>
       </div>
+      {/* <div>
+      <Bgm />
+      </div> */}
       
       { !char.alive && <Ending  char={char} age={age}/>} 
       
