@@ -7,8 +7,9 @@ export default function Bgm() {
   
   return (
     <div>
+      
         <ReactAudioPlayer
-  src={process.env.PUBLIC_URL + "/death.wav"}
+  src={`https://musiclab.chromeexperiments.com/Song-Maker/song/5494165148532736`}
   autoPlay
   controls
 />

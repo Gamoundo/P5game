@@ -44,19 +44,19 @@ const [projectiles, setProjectiles] = useState([])
 const [stressors, setStressors] = useState([])
 
 const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
-const {spawnWork} = useEnemy(ey, setEy)
-useEffect(() => {
-  if(ey % 80 === 0){
-    let bullet = {
-      x: px,
-      y: ey
-    }
-    projectiles.push(bullet)
+const {spawnWork, spawnStress, spawnDeath} = useEnemy(ey, setEy, sy, setSy, setProjectiles, projectiles, ycoord)
+// useEffect(() => {
+//   if(ey % 80 === 0){
+//     let bullet = {
+//       x: px,
+//       y: ey
+//     }
+//     projectiles.push(bullet)
     
-  }
+//   }
 
  
-}, [projectiles, ey, px])
+// }, [projectiles, ey, px])
 
 useEffect(() => {
   if(sy % 60 === 0){
@@ -83,35 +83,27 @@ useEffect(() => {
     movement(p5)
    p5.rect(xcoord, ycoord, 30, 30, 20)
    
-
-  //  p5.fill('yellow')
-  //   p5.ellipse(250,ey, 50,40).frameRate(40)
-  //   p5.fill('green')
-  //   p5.text('Work', 233, ey)
-  //   setEy(prev => prev += 5)
-  //   if (ey > 380) {
-  //     setEy(prev => prev = 0)
-  //   }
-  spawnWork(p5)
+spawnWork(p5)
+spawnDeath(p5)
     
-    p5.fill('sky-blue')
-  for (let bullet of projectiles) {
-    p5.ellipse(bullet.x, bullet.y, 10, 5)
-    bullet.x -= 5
+  //   p5.fill('sky-blue')
+  // for (let bullet of projectiles) {
+  //   p5.ellipse(bullet.x, bullet.y, 10, 5)
+  //   bullet.x -= 5
     
   
-  }
+  // }
 
-  for(let i = 0; i < projectiles.length; i++) {
-    if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
-      projectiles.splice(i, 1)
-      setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
+  // for(let i = 0; i < projectiles.length; i++) {
+  //   if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
+  //     projectiles.splice(i, 1)
+  //     setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
       
-    }
-    if(projectiles[i].x <= -5) {
-      projectiles.splice(i, 1)
-    }
-  } 
+  //   }
+  //   if(projectiles[i].x <= -5) {
+  //     projectiles.splice(i, 1)
+  //   }
+  // } 
 
   for(let i = 0; i < stressors.length; i++) {
     if( p5.dist(stressors[i].x, stressors[i].y, xcoord,ycoord) < 10){
@@ -125,15 +117,8 @@ useEffect(() => {
   }
 
 
-  p5.fill('green')
-    p5.ellipse(500,sy, 60,60).frameRate(40)
-    p5.fill('yellow')
-    p5.text('stress', 480, sy)
-    setSy(prev => prev += 4)
-    if (sy > 380) {
-      setSy(prev => prev = 0)
-    }
-    
+  
+    spawnStress(p5)
     p5.fill('pink')
   for (let stessor of stressors) {
     p5.ellipse(stessor.x, stessor.y, 20, 10)
