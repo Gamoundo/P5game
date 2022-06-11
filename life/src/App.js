@@ -4,6 +4,7 @@ import Sketch from 'react-p5';
 import React, { useEffect,  useState } from 'react';
 import Timer from './components/Timer';
 import useCharacter from './hooks/useCharacter'
+import useEnemy from './hooks/useEnemy'
 import Story from './components/Story';
 import Ending from './components/Ending';
 import Bgm from './components/Bgm';
@@ -43,6 +44,7 @@ const [projectiles, setProjectiles] = useState([])
 const [stressors, setStressors] = useState([])
 
 const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
+const {spawnWork} = useEnemy(ey, setEy)
 useEffect(() => {
   if(ey % 80 === 0){
     let bullet = {
@@ -82,14 +84,15 @@ useEffect(() => {
    p5.rect(xcoord, ycoord, 30, 30, 20)
    
 
-   p5.fill('yellow')
-    p5.ellipse(250,ey, 50,40).frameRate(40)
-    p5.fill('green')
-    p5.text('Work', 233, ey)
-    setEy(prev => prev += 5)
-    if (ey > 380) {
-      setEy(prev => prev = 0)
-    }
+  //  p5.fill('yellow')
+  //   p5.ellipse(250,ey, 50,40).frameRate(40)
+  //   p5.fill('green')
+  //   p5.text('Work', 233, ey)
+  //   setEy(prev => prev += 5)
+  //   if (ey > 380) {
+  //     setEy(prev => prev = 0)
+  //   }
+  spawnWork(p5)
     
     p5.fill('sky-blue')
   for (let bullet of projectiles) {
@@ -150,14 +153,15 @@ useEffect(() => {
   return (
     <div >
       <h1>Life</h1>
+      <div>
+      <Bgm />
+      </div>
       <Timer  setAge={setAge} age={age} alive={char.alive}/>
       <div className='row'>
      {age && <Sketch setup={setup} draw={draw}/>} 
       <Story  char={char}/>
       </div>
-      {/* <div>
-      <Bgm />
-      </div> */}
+      
       
       { !char.alive && <Ending  char={char} age={age}/>} 
       

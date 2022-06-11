@@ -1,16 +1,17 @@
 import React from 'react'
-import Sound from 'react-sound'
+import ReactAudioPlayer from 'react-audio-player';
 
 
 export default function Bgm() {
+
+  
   return (
     <div>
-        <Sound
-        url='http://localhost:3000/ordinary.mp3'
-        playStatus='PLAYING'
-        loop = {true}
-
-        />
+        <ReactAudioPlayer
+  src={process.env.PUBLIC_URL + "/death.wav"}
+  autoPlay
+  controls
+/>
 
     </div>
   )
