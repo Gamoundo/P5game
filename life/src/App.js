@@ -46,46 +46,55 @@ const [eliminators, setEliminators] = useState([])
 const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
 const {spawnWork, spawnStress, spawnDeath} = useEnemy(ey, setEy, sy, setSy, setProjectiles, projectiles, ycoord)
 useEffect(() => {
-  if(ey % 80 === 0){
-    let bullet = {
-      x: px,
-      y: ey
+  if(char.alive){
+    if(ey % 80 === 0){
+      let bullet = {
+        x: px,
+        y: ey
+      }
+      projectiles.push(bullet)
+      
     }
-    projectiles.push(bullet)
-    
   }
+  
 
  
-}, [projectiles, ey, px])
+}, [projectiles, char.alive, ey, px])
 
 useEffect(() => {
-  if(sy % 60 === 0){
-    let stressor = {
-      x: 500,
-      y: sy
+
+  if(char.alive){
+    if(sy % 60 === 0){
+      let stressor = {
+        x: 500,
+        y: sy
+      }
+      stressors.push(stressor)
+      
     }
-    stressors.push(stressor)
-    
   }
+  
 
  
-}, [stressors, sy])
+}, [stressors, char.alive, sy])
 
 
 
 
 useEffect(() => {
-     
-  let interval = setInterval(() => {
-    let eliminator = {
-      x: 580,
-      y: ycoord
-    }
-    eliminators.push(eliminator)
-  }, 500)
-
-  return () => clearInterval(interval)
-}, [eliminators, ycoord])
+     if(char.alive) {
+      let interval = setInterval(() => {
+        let eliminator = {
+          x: 580,
+          y: ycoord
+        }
+        eliminators.push(eliminator)
+      }, 500)
+    
+      return () => clearInterval(interval)
+     }
+  
+}, [eliminators, char.alive, ycoord])
 
 // console.log(xcoord, ycoord)
 
