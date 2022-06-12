@@ -1,18 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactAudioPlayer from 'react-audio-player';
-
+import death from '../static/death.wav'
+import life from '../static/life.wav'
+import hype from '../static/hype.wav'
+import anxious from '../static/anxious.wav'
 
 export default function Bgm() {
 
-  
+
+  let audio = new Audio(life) 
+
   return (
     <div>
-      
-        <ReactAudioPlayer
-  src={`https://musiclab.chromeexperiments.com/Song-Maker/song/5494165148532736`}
+      <audio controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${hype}`} type="audio/mpeg" /> </audio>
+        {/* <ReactAudioPlayer
+  src=song={}
   autoPlay
   controls
-/>
+/> */}
 
     </div>
   )
