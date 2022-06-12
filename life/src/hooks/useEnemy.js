@@ -3,34 +3,11 @@ import { useEffect, useState } from "react"
 
 export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,) {
   
-  const [projectiles, setProjectiles] = useState([])
-  const [stressors, setStressors] = useState([])
+ 
   
-  useEffect(() => {
-    if(ey % 80 === 0){
-      let bullet = {
-        x: px,
-        y: ey
-      }
-      setProjectiles(prev => [...prev], bullet)
-      
-    }
   
-   
-  }, [setProjectiles, ey, px])
 
-  useEffect(() => {
-    if(sy % 60 === 0){
-      let stressor = {
-        x: 500,
-        y: sy
-      }
-      setStressors(prev => [...prev], stressor)
-      
-    }
   
-   
-  }, [setStressors, sy])
   
   
   
@@ -46,22 +23,8 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
         setEy(prev => prev = 0)
     }
 
-    p5.fill('sky-blue')
-  for (let bullet of projectiles) {
-    p5.ellipse(bullet.x, bullet.y, 10, 5)
-    bullet.x -= 5
     
-  }
-  for(let i = 0; i < projectiles.length; i++) {
-    if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
-      projectiles.splice(i, 1)
-      setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
-      
-    }
-    if(projectiles[i].x <= -5) {
-      projectiles.splice(i, 1)
-    }
-  }
+  
 
 
 

@@ -42,21 +42,21 @@ const [age, setAge] = useState(20)
 const [speed, setSpeed] = useState(5)
 const [projectiles, setProjectiles] = useState([])
 const [stressors, setStressors] = useState([])
-
+const [eliminators, setEliminators] = useState([])
 const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
 const {spawnWork, spawnStress, spawnDeath} = useEnemy(ey, setEy, sy, setSy, setProjectiles, projectiles, ycoord)
-// useEffect(() => {
-//   if(ey % 80 === 0){
-//     let bullet = {
-//       x: px,
-//       y: ey
-//     }
-//     projectiles.push(bullet)
+useEffect(() => {
+  if(ey % 80 === 0){
+    let bullet = {
+      x: px,
+      y: ey
+    }
+    projectiles.push(bullet)
     
-//   }
+  }
 
  
-// }, [projectiles, ey, px])
+}, [projectiles, ey, px])
 
 useEffect(() => {
   if(sy % 60 === 0){
@@ -70,6 +70,22 @@ useEffect(() => {
 
  
 }, [stressors, sy])
+
+
+
+
+useEffect(() => {
+     
+  let interval = setInterval(() => {
+    let eliminator = {
+      x: 580,
+      y: ycoord
+    }
+    eliminators.push(eliminator)
+  }, 500)
+
+  return () => clearInterval(interval)
+}, [eliminators, ycoord])
 
 // console.log(xcoord, ycoord)
 
@@ -85,25 +101,25 @@ useEffect(() => {
    
 spawnWork(p5)
 spawnDeath(p5)
-    
-  //   p5.fill('sky-blue')
-  // for (let bullet of projectiles) {
-  //   p5.ellipse(bullet.x, bullet.y, 10, 5)
-  //   bullet.x -= 5
+spawnStress(p5)
+    p5.fill('sky-blue')
+  for (let bullet of projectiles) {
+    p5.ellipse(bullet.x, bullet.y, 10, 5)
+    bullet.x -= 5
     
   
-  // }
+  }
 
-  // for(let i = 0; i < projectiles.length; i++) {
-  //   if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
-  //     projectiles.splice(i, 1)
-  //     setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
+  for(let i = 0; i < projectiles.length; i++) {
+    if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
+      projectiles.splice(i, 1)
+      setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
       
-  //   }
-  //   if(projectiles[i].x <= -5) {
-  //     projectiles.splice(i, 1)
-  //   }
-  // } 
+    }
+    if(projectiles[i].x <= -5) {
+      projectiles.splice(i, 1)
+    }
+  } 
 
   for(let i = 0; i < stressors.length; i++) {
     if( p5.dist(stressors[i].x, stressors[i].y, xcoord,ycoord) < 10){
@@ -117,15 +133,35 @@ spawnDeath(p5)
   }
 
 
-  
-    spawnStress(p5)
-    p5.fill('pink')
+  p5.fill('pink')
   for (let stessor of stressors) {
     p5.ellipse(stessor.x, stessor.y, 20, 10)
     stessor.x -= 4
     if( p5.dist(stessor.x, stessor.y, xcoord,ycoord) < 10){
       console.log("hit")
     }
+  
+  }
+
+
+  for(let i = 0; i < eliminators.length; i++) {
+    if( p5.dist(eliminators[i].x, eliminators[i].y, xcoord,ycoord) < 10){
+      eliminators.splice(i, 1)
+      setChar(prev => ({...prev,  alive: prev.alive = false}))
+      
+      
+    }
+    if(eliminators[i].x <= -5) {
+      eliminators.splice(i, 1)
+    }
+  }
+
+
+  p5.fill('red')
+  for (let eliminator of eliminators) {
+    p5.ellipse(eliminator.x, eliminator.y, 20, 10)
+    eliminator.x -= 4
+    
   
   }
 
