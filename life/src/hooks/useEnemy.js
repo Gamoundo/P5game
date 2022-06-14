@@ -49,6 +49,8 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
     
     
   }
+
+  
   
   
   
