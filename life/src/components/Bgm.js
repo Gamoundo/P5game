@@ -8,17 +8,17 @@ import anxious from '../static/anxious.wav'
 export default function Bgm({char}) {
 
 
-  let audio = new Audio(life) 
+  // let audio = new Audio(life) 
 
-  function audioChange() {
-    if(!char.alive) {
-    return  <audio controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${death}`} type="audio/mpeg" /> </audio>
-    }
-    if(char.stressHits > 40){
-    return  <audio controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${anxious}`} type="audio/mpeg" /> </audio>
-    }
-    return <audio  controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${hype}`} type="audio/mpeg" /> </audio>
-  }
+  // function audioChange() {
+  //   if(!char.alive) {
+  //   return  <audio controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${death}`} type="audio/mpeg" /> </audio>
+  //   }
+  //   if(char.stressHits > 40){
+  //   return  <audio controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${anxious}`} type="audio/mpeg" /> </audio>
+  //   }
+  //   return <audio  controls autoPlay="yes" loop='true' > <source src={`http://localhost:3000${hype}`} type="audio/mpeg" /> </audio>
+  // }
 
   return (
     <div>

@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
+
 
 
 export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,) {
@@ -12,6 +13,8 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
   
   
   let workSpeed = 5
+  const [sSpeed, setSSpeed] = useState(5)
+
   function spawnWork(p5) {
     p5.fill('yellow')
     p5.ellipse(250,ey, 50,40).frameRate(40)
@@ -32,12 +35,12 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
 
   function spawnStress(p5) {
     p5.fill('green')
-    p5.ellipse(500,sy, 60,60).frameRate(40)
+    p5.ellipse(500,sy, 60,60).frameRate(60)
     p5.fill('yellow')
     p5.text('stress', 480, sy)
-    setSy(prev => prev += 4)
-    if (sy > 380) {
-      setSy(prev => prev = 0)
+    setSy(prev => prev += sSpeed)
+    if (sy > 380 || sy < 5) {
+      setSSpeed(prev => -prev)
     }
   }
 

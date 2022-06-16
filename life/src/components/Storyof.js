@@ -8,7 +8,7 @@ import useEnemy from '../hooks/useEnemy'
 import Sketch from 'react-p5';
 
 
-function Storyof() {
+function Storyof({char, setChar}) {
     const setup = (p5, canvasParentRef) => {
       p5.createCanvas(1000, 400).parent(canvasParentRef)
       
@@ -21,20 +21,13 @@ function Storyof() {
     
     let px = 250
      
-  const [char, setChar] = useState(
-    {
-      name:'Dave',
-      workHits: 0,
-      stressHits: 0,
-      alive: true,
-    }
-  )
+ 
     const [square, setSquare] = useState(
         {x: Math.floor(Math.random() * 100), y:Math.floor(Math.random() * 360) }
     )
     
   const [c1, setC1] = useState(`green`)  
-  const [color, setColor] = useState('teal')
+//   const [color, setColor] = useState('teal')
   const [xcoord, setXCoord] =useState(30)
   const [ycoord, setYCoord] =useState(20)
   const [ey, setEy] = useState(60)
@@ -42,10 +35,21 @@ function Storyof() {
   const [age, setAge] = useState(20)
   const [speed, setSpeed] = useState(5)
   const [projectiles, setProjectiles] = useState([])
-  const [stressors, setStressors] = useState([])
-  const [eliminators, setEliminators] = useState([])
+  
+
+  let color = 'teal'
+  
+ const [eliminators, setEliminators] =useState([])
+const [stressors, setStressors] = useState([])
+  
+  
+  
   const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
   const {spawnWork, spawnStress, spawnDeath} = useEnemy(ey, setEy, sy, setSy, setProjectiles, projectiles, ycoord)
+  
+  
+  
+  
   useEffect(() => {
     if(char.alive){
       if(ey % 80 === 0){
@@ -203,7 +207,7 @@ function Storyof() {
   
     return (
       <div >
-        <h1>Life</h1>
+        <h1>The Story of {char.name}</h1>
         <div>
         <Bgm  char={char}/>
         </div>
