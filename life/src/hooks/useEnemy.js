@@ -39,9 +39,10 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
     p5.fill('yellow')
     p5.text('stress', 480, sy)
     setSy(prev => prev += sSpeed)
-    if (sy > 380 || sy < 5) {
-      setSSpeed(prev => -prev)
+    if (sy > 380 ) {
+      setSy(prev => 0)
     }
+    
   }
 
   function spawnDeath(p5) {

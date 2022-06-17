@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,800;1,100&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hanalei&family=Press+Start+2P&display=swap');
+
+
 .App {
   text-align: center;
 }
@@ -45,6 +49,7 @@
 .story {
 color: greenyellow;  
 background-color: purple;
+font-family: 'Press Start 2P', cursive;
 }
 
 .modal {
@@ -57,6 +62,7 @@ background-color: purple;
   position: fixed;
   right: 0;
   top: 0;
+  font-family: 'Permanent Marker';
 }
 
 

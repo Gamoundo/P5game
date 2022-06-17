@@ -125,7 +125,7 @@ const [stressors, setStressors] = useState([])
     }
   
     for(let i = 0; i < projectiles.length; i++) {
-      if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 10){
+      if( p5.dist(projectiles[i].x, projectiles[i].y, xcoord,ycoord) < 20){
         projectiles.splice(i, 1)
         setChar(prev => ({...prev,  workHits: prev.workHits += 1}))
         
@@ -136,7 +136,7 @@ const [stressors, setStressors] = useState([])
     } 
   
     for(let i = 0; i < stressors.length; i++) {
-      if( p5.dist(stressors[i].x, stressors[i].y, xcoord,ycoord) < 10){
+      if( p5.dist(stressors[i].x, stressors[i].y, xcoord,ycoord) < 20){
         stressors.splice(i, 1)
         setChar(prev => ({...prev,  stressHits: prev.stressHits += 1}))
         
@@ -157,7 +157,7 @@ const [stressors, setStressors] = useState([])
   
   
     for(let i = 0; i < eliminators.length; i++) {
-      if( p5.dist(eliminators[i].x, eliminators[i].y, xcoord,ycoord) < 10){
+      if( p5.dist(eliminators[i].x, eliminators[i].y, xcoord,ycoord) < 20){
         eliminators.splice(i, 1)
         setChar(prev => ({...prev,  alive: prev.alive = false}))
         
