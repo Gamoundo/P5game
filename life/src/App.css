@@ -1,6 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Genos:ital,wght@0,800;1,100&family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hanalei&family=Press+Start+2P&display=swap');
 
+body {
+  background-color: burlywood;
+}
 
 .App {
   text-align: center;
@@ -50,6 +53,18 @@
 color: greenyellow;  
 background-color: purple;
 font-family: 'Press Start 2P', cursive;
+}
+
+.sign {
+  max-width: 200px;
+  max-height: 100px;
+  background: #fff;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 10% auto;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+background-color: aqua;  
+  font-family: 'Permanent Marker';
 }
 
 .modal {

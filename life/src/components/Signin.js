@@ -13,7 +13,7 @@ export default function Signin({setChar}) {
         })
     }
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className='sign'>
         <div> Whose Story is This?
         <input type="text" name="name" placeholder="Name" />
         </div>
