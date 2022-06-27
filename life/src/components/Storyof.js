@@ -21,10 +21,8 @@ function Storyof({char, setChar}) {
     
     let px = 250
      
- 
-    const [square, setSquare] = useState(
-        {x: Math.floor(Math.random() * 100), y:Math.floor(Math.random() * 360) }
-    )
+const [pickups, setPickups] = useState([]) 
+    
     
   const [c1, setC1] = useState(`green`)  
 //   const [color, setColor] = useState('teal')
@@ -100,6 +98,26 @@ const [stressors, setStressors] = useState([])
        }
     
   }, [eliminators, char.alive, ycoord])
+
+
+  useEffect(() => {
+    if(char.alive) {
+     let interval = setInterval(() => {
+      let perks =
+      ["family", 'friend', 'vacation', 'drugs'] 
+      
+      let pickup = {
+         x: Math.floor(Math.random() * 100),
+         y: Math.floor(Math.random() * 360),
+         name: perks[Math.floor(Math.random() *perks.length)]
+       }
+       pickups.push(pickup)
+     }, 5000)
+   
+     return () => clearInterval(interval)
+    }
+ 
+}, [pickups, char.alive])
   
   // console.log(xcoord, ycoord)
   
@@ -176,30 +194,14 @@ const [stressors, setStressors] = useState([])
       
     
     }
-
-    function spawnPickup() {
-        
-        
-        
-        if (char.workHits > 50) {
-          p5.fill('gold')
-         p5.rect(square.x, square.y, 20, 20, 10)
-          p5.fill('green')
-          p5.text('V', square.x, square.y)
-        }
+p5.fill('green')
+    for (let pickup of pickups) {
+      p5.ellipse(pickup.x, pickup.y, 20, 15)
+      p5.fill('black')
+      p5.text(pickup.name, pickup.x + 10, pickup.y -10 )
+      
     
-        if (char.stressHits > 50) {
-          p5.fill('green')
-          p5.rect(square.x, square.y, 20, 20, 10)
-          p5.fill('gold')
-          p5.text('D', square.x, square.y)
-        }
-    
-    
-    
-      }
-  
-      spawnPickup()
+    }
    
       
     }
