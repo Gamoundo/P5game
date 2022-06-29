@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from 'react';
+import React, { useEffect,  useMemo,  useState } from 'react';
 import Bgm from './Bgm';
 import Ending from './Ending';
 import Timer from './Timer';
@@ -21,8 +21,8 @@ function Storyof({char, setChar}) {
     
     let px = 250
      
-const [pickups, setPickups] = useState([]) 
-    
+// const [pickups, setPickups] = useState([]) 
+ let pickups = useMemo(() => [], [])   
     
   const [c1, setC1] = useState(`green`)  
 //   const [color, setColor] = useState('teal')
@@ -37,9 +37,10 @@ const [pickups, setPickups] = useState([])
 
   let color = 'teal'
   
- const [eliminators, setEliminators] =useState([])
-const [stressors, setStressors] = useState([])
-  
+//  const [eliminators, setEliminators] =useState([])
+// const [stressors, setStressors] = useState([])
+  let stressors= useMemo(() => [], [])
+  let eliminators= useMemo(() => [], [])
   
   
   const {aging, movement} = useCharacter(age, setC1, setSpeed, xcoord, ycoord, setXCoord, setYCoord, speed)
@@ -82,6 +83,7 @@ const [stressors, setStressors] = useState([])
   }, [stressors, char.alive, sy])
   
   
+
   
   
   useEffect(() => {
@@ -101,10 +103,19 @@ const [stressors, setStressors] = useState([])
 
 
   useEffect(() => {
+    
+    if(pickups.length >= 1) {
+      console.log(pickups)
+      let interval = setInterval(() => {
+        pickups.splice(0, 1)
+      }, 3000)
+  
+      return () => clearInterval(interval)
+    }
     if(char.alive) {
      let interval = setInterval(() => {
       let perks =
-      ["family", 'friend', 'vacation', 'drugs'] 
+      ["fam", 'fr', 'v', 'd'] 
       
       let pickup = {
          x: Math.floor(Math.random() * 100),
@@ -194,12 +205,20 @@ const [stressors, setStressors] = useState([])
       
     
     }
-p5.fill('green')
+
     for (let pickup of pickups) {
-      p5.ellipse(pickup.x, pickup.y, 20, 15)
-      p5.fill('black')
-      p5.text(pickup.name, pickup.x + 10, pickup.y -10 )
-      
+      p5.fill('purple')
+      p5.ellipse(pickup.x, pickup.y, 30, 30)
+      p5.fill('yellow')
+      p5.text(pickup.name, pickup.x , pickup.y )
+      if (pickup.name === 'fam') {
+        if( p5.dist(pickup.x, pickup.y, xcoord,ycoord) < 20){
+          pickups.splice(pickups.indexOf(pickup), 1)
+          setChar(prev => ({...prev,  fam: prev.fam++}))
+          
+          
+        }
+      }
     
     }
    
