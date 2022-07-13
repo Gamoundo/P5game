@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function Ending({char, age}) {
   
+  
   const youth = (num) => {
       if(num > 60) {
         return  <p> {char.name} died at the age of {num}</p>
@@ -34,6 +35,7 @@ export default function Ending({char, age}) {
         {youth(age)}
         {work()}
         {stress()}
+       <p>Survived by {char.fam} family members</p>
     </div>
   )
 }

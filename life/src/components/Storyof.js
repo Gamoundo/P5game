@@ -1,4 +1,4 @@
-import React, { useEffect,  useMemo,  useState } from 'react';
+import React, { useEffect,  useLayoutEffect,  useMemo,  useState } from 'react';
 import Bgm from './Bgm';
 import Ending from './Ending';
 import Timer from './Timer';
@@ -100,22 +100,25 @@ function Storyof({char, setChar}) {
        }
     
   }, [eliminators, char.alive, ycoord])
-
-
-  useEffect(() => {
-    
+  console.log(pickups)
+  useLayoutEffect(() => {
     if(pickups.length >= 1) {
-      console.log(pickups)
+      
       let interval = setInterval(() => {
         pickups.splice(0, 1)
       }, 3000)
   
       return () => clearInterval(interval)
-    }
+    } 
+  },[pickups])
+
+  useEffect(() => {
+    
+    
     if(char.alive) {
      let interval = setInterval(() => {
       let perks =
-      ["fam", 'fr', 'v', 'd'] 
+      ["fam", 'v', 'd'] 
       
       let pickup = {
          x: Math.floor(Math.random() * 100),
@@ -192,7 +195,7 @@ function Storyof({char, setChar}) {
         
         
       }
-      if(eliminators[i].x <= -5) {
+      if(eliminators && eliminators[i].x <= -5) {
         eliminators.splice(i, 1)
       }
     }
@@ -212,9 +215,26 @@ function Storyof({char, setChar}) {
       p5.fill('yellow')
       p5.text(pickup.name, pickup.x , pickup.y )
       if (pickup.name === 'fam') {
-        if( p5.dist(pickup.x, pickup.y, xcoord,ycoord) < 20){
+        if( p5.dist(pickup.x, pickup.y, xcoord,ycoord) < 30){
           pickups.splice(pickups.indexOf(pickup), 1)
-          setChar(prev => ({...prev,  fam: prev.fam++}))
+          setChar(prev => ({...prev,  fam: prev.fam += 1}))
+          
+          
+        }
+      }
+      if(pickup.name === 'd'){
+        if( p5.dist(pickup.x, pickup.y, xcoord,ycoord) < 30){
+          pickups.splice(pickups.indexOf(pickup), 1)
+          setChar(prev => ({...prev,  stressHits: prev.stressHits - 5}))
+          
+          
+        }
+      }
+
+      if(pickup.name === 'v'){
+        if( p5.dist(pickup.x, pickup.y, xcoord,ycoord) < 30){
+          pickups.splice(pickups.indexOf(pickup), 1)
+          setChar(prev => ({...prev,  workHits: prev.workHits - 5}))
           
           
         }

@@ -10,6 +10,7 @@ export default function Signin({setChar}) {
             workHits: 0,
             stressHits: 0,
             alive: true,
+            fam: 0
         })
     }
   return (
