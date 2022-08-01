@@ -148,7 +148,7 @@ function Storyof({char, setChar}) {
   spawnWork(p5)
   spawnDeath(p5)
   spawnStress(p5)
-      p5.fill('sky-blue')
+      p5.fill('yellow')
     for (let bullet of projectiles) {
       p5.ellipse(bullet.x, bullet.y, 10, 5)
       bullet.x -= 5

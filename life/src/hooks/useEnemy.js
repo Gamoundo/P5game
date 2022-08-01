@@ -38,9 +38,13 @@ export default function Enemy(ey, setEy, sy, setSy, px, xcoord, ycoord, setChar,
     p5.ellipse(500,sy, 60,60).frameRate(60)
     p5.fill('yellow')
     p5.text('stress', 480, sy)
-    setSy(prev => prev += sSpeed)
-    if (sy > 380 ) {
-      setSy(prev => 0)
+    setSy(prev => prev += sSpeed) 
+    if (sy >= 380 ) {
+      setSSpeed(prev => -5)
+    }
+
+    if (sy <= 0 ) {
+      setSSpeed(prev => 5)
     }
     
   }

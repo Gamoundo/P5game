@@ -23,7 +23,7 @@ export default function Bgm({char}) {
   return (
     <div>
       {char.alive && char.stressHits >= 50 && char.workHits >= 40 && <audio  controls autoPlay="yes" loop={true} > <source src={`http://localhost:3000${overwork}`} type="audio/mpeg" /> </audio>}
-      {char.alive && char.stressHits < 30 && <audio  controls autoPlay="yes" loop={true} > <source src={`http://localhost:3000${hype}`} type="audio/mpeg" /> </audio> }
+      {char.alive && char.stressHits < 30 && char.workHits < 40 && <audio  controls autoPlay="yes" loop={true} > <source src={`http://localhost:3000${hype}`} type="audio/mpeg" /> </audio> }
       {char.alive && char.stressHits >= 30 && <audio  controls autoPlay="yes" loop={true} > <source src={`http://localhost:3000${anxious}`} type="audio/mpeg" /> </audio> }
       
       {!char.alive &&  <audio controls autoPlay="yes" loop={true} > <source src={`http://localhost:3000${death}`} type="audio/mpeg" /> </audio>}
